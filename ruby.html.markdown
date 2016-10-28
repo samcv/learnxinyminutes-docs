@@ -70,11 +70,12 @@ false.class #=> FalseClass
 1 != 1 #=> false
 2 != 1 #=> true
 
-# apart from false itself, nil is the only other 'falsey' value
+# Apart from false itself, nil is the only other 'falsey' value
+# We can coerce a value to boolean by using the boolean `not` operator twice:
 
-!nil   #=> true
-!false #=> true
-!0     #=> false
+!!nil   #=> false
+!!false #=> false
+!!0     #=> true  # In Ruby, even 0 is a truthy value!
 
 # More comparisons
 1 < 10 #=> true
