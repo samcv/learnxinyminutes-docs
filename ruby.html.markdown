@@ -27,14 +27,12 @@ You shouldn't either
 =end
 
 # First and foremost: Everything is an object.
-
-# Numbers are objects
-
+# You can call methods on objects by using a `.`
+# Numbers and strings are objects:
 3.class #=> Fixnum
+"3".class #> String
 
-3.to_s #=> "3"
-
-
+## Operators
 # Some basic arithmetic
 1 + 1 #=> 2
 8 - 1 #=> 7
@@ -83,7 +81,9 @@ false.class #=> FalseClass
 2 <= 2 #=> true
 2 >= 2 #=> true
 
-# Combined comparison operator
+# Combined comparison operator: <=> combines the function of >, < and ==
+# Given a <=> b:
+# Returns 1 if a > b, returns 0 if a == b and returns -1 if  a < b
 1 <=> 10 #=> -1
 10 <=> 1 #=> 1
 1 <=> 1 #=> 0
