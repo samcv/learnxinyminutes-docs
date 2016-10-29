@@ -50,13 +50,14 @@ Variable= 'Some string'
 # as a variable assignment valid only for the scope of the 'Some string'
 # command.)
 
-# Using the variable:
-echo $Variable
-echo "$Variable"
-echo '$Variable'
-# When you use the variable itself — assign it, export it, or else — you write
-# its name without $. If you want to use the variable's value, you should use $.
-# Note that ' (single quote) won't expand the variables!
+# Variables by themself or in double quotes get interpolated:
+echo $Variable #> Some string
+echo "$Variable" #> Some string
+# When you use single quotes the variables are not interpolated and are taken
+# literally:
+echo '$Variable' #> $Variable
+# If you want to use the variables value, use a $.  If you are assigning it or
+# exporting it write its name without $.
 
 # Parameter expansion ${ }:
 echo ${Variable}
