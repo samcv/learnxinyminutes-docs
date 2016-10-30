@@ -37,7 +37,10 @@ my $variable;
 my $str = 'String';
 # double quotes allow for interpolation (which we'll see later):
 my $str2 = "String";
-
+# You can concatenate two strings with `~`
+my $str3 = $str ~ $str2; #> StringString
+[//]: # ( TODO we don't ever explain interpolation later on! )
+[//]: # ( TODO explain brackets in interpolation )
 # Variable names can contain but not end with simple quotes and dashes,
 # and can contain (and end with) underscores :
 # my $weird'variable-name_ = 5; # works !
@@ -200,15 +203,21 @@ sub mutate($n is rw) {
 }
 
 my $m = 42;
-mutate $m; # $n is now 43 !
-
+mutate $m; #> $n is now 43 !
+say $m; #> 43 # Notice how $m's value was changed!
 # This works because we are passing the container $m to mutate.  If we try
 # to just pass a number instead of passing a variable it won't work because
 # there is no container being passed and integers are immutable by themselves:
-
 mutate 42; # Parameter '$n' expected a writable container, but got Int value
-
-# If what you want a copy instead, use `is copy`.
+# In this case it would be best to use `is copy`
+sub mutate_copy($n is copy) {
+  $n++;
+  say "\$n is now $n !";
+}
+mutate_copy 42; #> $n is now 43 !
+my $p = 100;
+mutate_copy $p; #> $n is now 101 !
+say $p; #> 100 # This time $p was unaffected.
 
 # A sub itself returns a container, which means it can be marked as rw:
 my $x = 42;
@@ -1519,6 +1528,13 @@ multi MAIN('import', File, Str :$as) { ... } # omitting parameter name
 # As you can see, this is *very* powerful.
 # It even went as far as to show inline the constants.
 # (the type is only displayed if the argument is `$`/is named)
+
+[//]: # ( TODO explain how to define your own operators )
+### Defining your own operators!
+# Perl 6 makes it easy to define your own operators.  Let's see how you can
+# make your own variation on the `=` assignment operator, but only assigns
+# if the right side is defined!
+sub infix:< ?= > ($left is rw, $right) { $left = $right if defined $right }
 
 ###
 ### APPENDIX A:
